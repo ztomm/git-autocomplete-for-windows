@@ -151,12 +151,17 @@ function getBranches()
 	local branches = {}
 
 	if string.starts(result, "fatal") == false then
-		for branch in string.gmatch(result, "  %S+") do
-			branch = string.gsub(branch, "  ", "")
-
-			if branch ~= "HEAD" then
-				table.insert(branches, branch)
+		for branch in string.gmatch(result, "[* ]%s.%S+") do
+			if string.sub(branch, 0, 1) == "*" then
+				branch = string.gsub(branch, "* ", "")
+			else
+				branch = string.gsub(branch, "  ", "")
 			end
+			table.insert(branches, branch)
+		end
+		for branch in string.gmatch(result, "  %S+") do
+			branch = string.gsub(branch, "remotes/origin/", "origin ")
+			table.insert(branches, branch)
 		end
 	end
 
