@@ -35,8 +35,8 @@ local function getBranchesLocal(alias)
 	if startsWith(result, "fatal") == false then
 		for branch in string.gmatch(result, "[* ]%s.%S+") do
 			branch = string.gsub(branch, "^%*%s*", "")
-      branch = string.gsub(branch, "^%s*remotes/", "")
-      branch = string.gsub(branch, "^%s+", "")
+			branch = string.gsub(branch, "^%s*remotes/", "")
+			branch = string.gsub(branch, "^%s+", "")
 			clink.argmatcher("git"):addarg(alias):addarg(branch):nofiles()
 			clink.argmatcher("git"):addarg(alias):addarg("origin"):addarg(branch):nofiles()
 		end
